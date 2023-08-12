@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  list-style: none;
+}
+
+.page {
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.active {
+  border: 2px solid #000;
+  font-weight: bold;
+}
+
+.previous {
+  padding: 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.break {
+  padding: 10px;
+}
+
+.next {
+  padding: 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.ClientDashboard {
+  display: flex;
+}
+
+.card-list {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.card {
+  width: 300px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card.open {
+  width: 500px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.card-content {
+  margin-top: 8px;
+}
+
+.selected-card {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+}
+
+.selected-content {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+}
+
