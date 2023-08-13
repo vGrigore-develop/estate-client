@@ -1,8 +1,7 @@
-import React from 'react';
+import React from 'react'
 // import ReactPaginate from 'react-paginate';
-import { Pagination, Stack } from '@mui/material';
-import styled from 'styled-components';
-
+import { Pagination, Stack } from '@mui/material'
+import styled from 'styled-components'
 
 import './Pagination.css'
 
@@ -10,9 +9,12 @@ const StyledPaginationWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
-`;
+`
 
-export default function StyledCustomPagination({ pageCount, handlePageChange }) {
+export default function StyledCustomPagination({
+  pageCount,
+  handlePageChange,
+}) {
   return (
     <StyledPaginationWrapper>
       <Pagination
@@ -22,5 +24,5 @@ export default function StyledCustomPagination({ pageCount, handlePageChange }) 
         onChange={handlePageChange}
       />
     </StyledPaginationWrapper>
-  );
+  )
 }

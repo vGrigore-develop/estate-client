@@ -26,7 +26,7 @@ export default function Login({ setToken, setUserInfo }) {
     })
     setToken({ token: loginResponse.token })
     console.log(loginResponse)
-    setUserInfo({id: loginResponse._id, name: loginResponse.name})
+    setUserInfo({ id: loginResponse._id, name: loginResponse.name })
   }
 
   return (
@@ -35,7 +35,6 @@ export default function Login({ setToken, setUserInfo }) {
         <h2 className="login-title">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-
             <TextField
               label="Email"
               variant="outlined"
@@ -66,5 +65,5 @@ export default function Login({ setToken, setUserInfo }) {
 
 Login.propTypes = {
   setToken: PropTypes.func.isRequired,
-  setUserInfo: PropTypes.func.isRequired
+  setUserInfo: PropTypes.func.isRequired,
 }

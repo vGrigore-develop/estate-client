@@ -51,7 +51,16 @@ export default function ClientDashboard() {
         <div className="card-list">
           {isLoaded &&
             estates.map((item) => (
-              <EstateCard title={item.title} price={item.price} phone={item.phone} rooms={item.rooms} location={item.location} city={item.city} />
+              <EstateCard
+                id={item._id}
+                title={item.title}
+                price={item.price}
+                phone={item.phone}
+                rooms={item.rooms}
+                location={item.location}
+                city={item.city}
+                favorites={item.favorites}
+              />
             ))}
         </div>
       )}

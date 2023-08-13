@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardContent, Typography, Divider } from '@mui/material'
 import styled from 'styled-components'
 
@@ -60,15 +60,25 @@ const ShowDetails = styled(Details)`
 `
 
 export default function EstateCard({
+  id,
   title,
   price,
   phone,
   rooms,
   location,
   city,
+  favorites,
 }) {
   const [showDetails, setShowDetails] = useState(false)
   const [isFavorited, setIsFavorited] = useState(false)
+
+  useEffect(() => {
+    const userInfoString = sessionStorage.getItem('userInfo')
+    const userInfo = JSON.parse(userInfoString)
+    if (favorites.includes(userInfo.id)) {
+      setIsFavorited(true)
+    }
+  }, [favorites])
 
   const toggleDetails = () => {
     setShowDetails(!showDetails)
@@ -77,20 +87,19 @@ export default function EstateCard({
   const toggleFavorite = () => {
     setIsFavorited(!isFavorited)
 
-    // TODO: Call API to favorite/unfavorite estate
-    // You can add your API call here
-    // Example:
-    // fetch('your-api-endpoint', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ estateId: id }),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     // Include authentication headers if needed
-    //   },
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log(data))
-    // .catch(error => console.error('Error', error));
+    const URL = `http://localhost:3000/api/estates/favorite/${id}`
+    const tokenString = sessionStorage.getItem('token')
+    const userToken = JSON.parse(tokenString)
+
+    fetch(URL, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': userToken.token,
+      },
+      method: 'POST',
+    }).catch((error) => {
+      console.error('Error', error)
+    })
   }
 
   return (
@@ -104,7 +113,7 @@ export default function EstateCard({
         </CardContentContainer>
       </CardContainer>
       {showDetails && (
-        <CardContainer active>
+        <CardContainer active="true">
           <CardContentContainer>
             <Title variant="h6">{title}</Title>
             <Price variant="subtitle1">{price} euro</Price>

@@ -1,8 +1,15 @@
-import React from 'react';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import LogoutIcon from '@mui/icons-material/Logout';
+import React from 'react'
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListItemButton,
+} from '@mui/material'
+import InboxIcon from '@mui/icons-material/MoveToInbox'
+import MailIcon from '@mui/icons-material/Mail'
+import LogoutIcon from '@mui/icons-material/Logout'
 
 export default function Sidebar({ open, onClose, onLogout }) {
   return (
@@ -34,6 +41,5 @@ export default function Sidebar({ open, onClose, onLogout }) {
         </ListItem>
       </List>
     </Drawer>
-  );
+  )
 }
-
