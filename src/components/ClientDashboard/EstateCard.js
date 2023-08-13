@@ -91,15 +91,27 @@ export default function EstateCard({
     const tokenString = sessionStorage.getItem('token')
     const userToken = JSON.parse(tokenString)
 
-    fetch(URL, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': userToken.token,
-      },
-      method: 'POST',
-    }).catch((error) => {
-      console.error('Error', error)
-    })
+    if (isFavorited === false) {
+      fetch(URL, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': userToken.token,
+        },
+        method: 'POST',
+      }).catch((error) => {
+        console.error('Error', error)
+      })
+    } else {
+      fetch(URL, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': userToken.token,
+        },
+        method: 'DELETE',
+      }).catch((error) => {
+        console.error('Error', error)
+      })
+    }
   }
 
   return (
