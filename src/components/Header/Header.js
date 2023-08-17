@@ -1,11 +1,12 @@
 import React from 'react'
 import { AppBar, Toolbar, Typography, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
+import './Header.css' // Import the new CSS file
 
 export default function Header({ toggleSidebar, loggedInUser }) {
   return (
-    <AppBar position="static">
-      <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <AppBar className="header" position="sticky">
+      <Toolbar className="toolbar-flex">
         <IconButton
           edge="start"
           color="inherit"
@@ -14,16 +15,10 @@ export default function Header({ toggleSidebar, loggedInUser }) {
         >
           <MenuIcon />
         </IconButton>
-        <Typography
-          variant="h6"
-          style={{ color: '#fff', textDecoration: 'none' }}
-        >
+        <Typography variant="h6" className="header-title">
           Estates Dashboard
         </Typography>
-        <Typography
-          variant="body2"
-          style={{ color: '#fff', marginLeft: '16px' }}
-        >
+        <Typography variant="body2" className="header-welcome">
           Welcome, {loggedInUser.name}
         </Typography>
       </Toolbar>

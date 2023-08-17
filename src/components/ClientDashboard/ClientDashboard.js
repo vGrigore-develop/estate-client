@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Container } from '@mui/material'
+import {
+  Container,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@mui/material'
 import { toast } from 'react-toastify'
 
 import EstateCard from './EstateCard'
@@ -46,6 +53,25 @@ export default function ClientDashboard() {
 
   return (
     <Container>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: '20px',
+        }}
+      >
+        <FormControl variant="outlined" style={{ width: '45%' }}>
+          <InputLabel>Sort by Price</InputLabel>
+          <Select
+            // value={sortOrder}
+            // onChange={(e) => setSortOrder(e.target.value)}
+            label="Sort by Price"
+          >
+            <MenuItem value="asc">Ascending</MenuItem>
+            <MenuItem value="desc">Descending</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
       {isLoading ? (
         <div className="loading-overlay">
           <div className="loading-spinner"></div>

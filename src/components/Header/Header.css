@@ -1,6 +1,20 @@
-.app-header {
-  background-color: #FF6F61; /* Living Coral background */
-  color: #fff; /* White text for contrast */
-  padding: 10px;
-  text-align: center;
+.header {
+  /* position: relative; */
+  z-index: 2;
+  width: 100%; 
+}
+
+.toolbar-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-title {
+  color: #fff;
+  text-decoration: none;
+}
+
+.header-welcome {
+  color: #fff;
+  margin-left: 16px;
 }

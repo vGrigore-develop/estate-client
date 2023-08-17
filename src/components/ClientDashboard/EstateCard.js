@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Divider } from '@mui/material'
+import { Card, CardContent, Typography, Divider } from '@mui/material'
 
-import {
-  CardListContainer,
-  CardContainer,
-  CardContentContainer,
-  TitleContainer,
-  Title,
-  Price,
-  Details,
-  ShowDetails,
-} from './EstateCardStyles'
+import './EstateCard.css'
 import HeartIcon from './HeartIcon'
 
 export default function EstateCard({
@@ -71,22 +62,30 @@ export default function EstateCard({
   }
 
   return (
-    <CardListContainer>
-      <CardContainer>
-        <CardContentContainer onClick={toggleDetails}>
-          <TitleContainer>
-            <Title variant="h6">{title}</Title>
-            <Price variant="subtitle1">{price} euro</Price>
-          </TitleContainer>
-        </CardContentContainer>
-      </CardContainer>
+    <div className="card-list-container">
+      <Card className="card-container">
+        <CardContent className="card-content-container" onClick={toggleDetails}>
+          <div className="title-container">
+            <Typography variant="h6" className="title">
+              {title}
+            </Typography>
+            <Typography variant="subtitle1" className="price">
+              {price} euro
+            </Typography>
+          </div>
+        </CardContent>
+      </Card>
       {showDetails && (
-        <CardContainer active="true">
-          <CardContentContainer>
-            <Title variant="h6">{title}</Title>
-            <Price variant="subtitle1">{price} euro</Price>
+        <Card className="card-container active">
+          <CardContent className="card-content-container">
+            <Typography variant="h6" className="title">
+              {title}
+            </Typography>
+            <Typography variant="subtitle1" className="price">
+              {price} euro
+            </Typography>
             <Divider style={{ margin: '8px 0' }} />
-            <ShowDetails>
+            <div className="show-details">
               <strong>Phone:</strong> {phone}
               <br />
               <strong>Rooms:</strong> {rooms}
@@ -94,12 +93,12 @@ export default function EstateCard({
               <strong>Location:</strong> {location}
               <br />
               <strong>City:</strong> {city}
-            </ShowDetails>
+            </div>
             <Divider style={{ margin: '8px 0' }} />
             <HeartIcon isFavorited={isFavorited} onToggle={toggleFavorite} />
-          </CardContentContainer>
-        </CardContainer>
+          </CardContent>
+        </Card>
       )}
-    </CardListContainer>
+    </div>
   )
 }
