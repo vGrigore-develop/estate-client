@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { CircularProgress, Container, Grid } from '@mui/material'
+import { CircularProgress, Container } from '@mui/material'
+import { toast } from 'react-toastify';
 
 import EstateCard from './EstateCard'
 import StyledCustomPagination from './Pagination'
@@ -14,7 +15,7 @@ export default function ClientDashboard() {
 
   useEffect(() => {
     setIsLoading(true)
-    const URL = `http://localhost:3000/api/estates/get?pageSize=10&pageNo=${currentPage}`
+    const URL = `${process.env.REACT_APP_API_URL}/estates/get?pageSize=10&pageNo=${currentPage}`
 
     const tokenString = sessionStorage.getItem('token')
     const userToken = JSON.parse(tokenString)
@@ -24,7 +25,12 @@ export default function ClientDashboard() {
         'x-access-token': userToken.token,
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok') // You can customize this message
+        }
+        return response.json()
+      })
       .then((body) => {
         setEstates([...body.estates])
         setPageCount(body.pagination.totalPages)
@@ -32,7 +38,7 @@ export default function ClientDashboard() {
         setIsLoading(false)
       })
       .catch((error) => {
-        console.error('Error', error)
+        toast.error(`Error: ${error.message}`);
         setIsLoading(false)
       })
   }, [currentPage])

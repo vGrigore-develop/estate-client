@@ -87,7 +87,7 @@ export default function EstateCard({
   const toggleFavorite = () => {
     setIsFavorited(!isFavorited)
 
-    const URL = `http://localhost:3000/api/estates/favorite/${id}`
+    const URL = `${process.env.REACT_APP_API_URL}/estates/favorite/${id}`
     const tokenString = sessionStorage.getItem('token')
     const userToken = JSON.parse(tokenString)
 

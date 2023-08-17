@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
 import ClientDashboard from '../ClientDashboard/ClientDashboard'
 import Login from '../Login/Login'
@@ -8,6 +9,7 @@ import useUserInfo from './useUserInfo'
 import Header from '../Header/Header'
 import Sidebar from '../Sidebar/Sidebar'
 
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
 
 function App() {
@@ -24,7 +26,13 @@ function App() {
   }
 
   if (!token) {
-    return <Login setToken={setToken} setUserInfo={setUserInfo} />
+    return (
+      <>
+        <div className="wrapper" />
+        <ToastContainer />
+        <Login setToken={setToken} setUserInfo={setUserInfo} />
+      </>
+    )
   }
 
   const handleLogout = () => {
@@ -34,6 +42,7 @@ function App() {
 
   return (
     <div className="wrapper">
+      <ToastContainer />
       <Header toggleSidebar={toggleSidebar} loggedInUser={loggedInUser} />
       <Sidebar
         open={sidebarOpen}

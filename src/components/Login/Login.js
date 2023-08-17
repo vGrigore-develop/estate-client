@@ -1,17 +1,29 @@
 import React, { useState } from 'react'
 import { TextField, Button } from '@mui/material'
 import PropTypes from 'prop-types'
+import { toast } from 'react-toastify'
 
 import './Login.css'
 
 async function loginUser(credentials) {
-  return fetch(`http://localhost:3000/api/users/login`, {
+  return fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(credentials),
-  }).then((data) => data.json())
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to login')
+      }
+      return response.json()
+    })
+    .catch((error) => {
+      console.log(error)
+      toast.error(`Login Error: ${error.message}`)
+      return { error: error.message }
+    })
 }
 
 export default function Login({ setToken, setUserInfo }) {
@@ -24,6 +36,12 @@ export default function Login({ setToken, setUserInfo }) {
       email,
       password,
     })
+
+    if (loginResponse.error) {
+      console.error(loginResponse.error)
+      return
+    }
+
     setToken({ token: loginResponse.token })
     console.log(loginResponse)
     setUserInfo({ id: loginResponse._id, name: loginResponse.name })
