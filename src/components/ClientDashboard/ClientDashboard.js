@@ -42,7 +42,12 @@ export default function ClientDashboard() {
         setIsLoading(false)
       })
       .catch((error) => {
-        toast.error(`Error: ${error.message}`)
+        if (isTokenExpired(userToken.token)) {
+          sessionStorage.removeItem('token')
+          window.location.reload()
+        } else {
+          toast.error(`Error: ${error.message}`)
+        }
         setIsLoading(false)
       })
   }, [currentPage])
