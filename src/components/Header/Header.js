@@ -2,7 +2,7 @@ import React from 'react'
 import { AppBar, Toolbar, Typography, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
-export default function Header({ toggleSidebar, loggedInUser, onLogout }) {
+export default function Header({ toggleSidebar, loggedInUser }) {
   return (
     <AppBar position="static">
       <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>

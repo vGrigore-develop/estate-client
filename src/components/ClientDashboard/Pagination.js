@@ -3,8 +3,6 @@ import React from 'react'
 import { Pagination, Stack } from '@mui/material'
 import styled from 'styled-components'
 
-import './Pagination.css'
-
 const StyledPaginationWrapper = styled.div`
   display: flex;
   justify-content: center;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import { TextField, Button } from '@mui/material'
 import PropTypes from 'prop-types'
 import { toast } from 'react-toastify'
@@ -6,24 +7,22 @@ import { toast } from 'react-toastify'
 import './Login.css'
 
 async function loginUser(credentials) {
-  return fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Failed to login')
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/users/login`,
+      credentials,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
-      return response.json()
-    })
-    .catch((error) => {
-      console.log(error)
-      toast.error(`Login Error: ${error.message}`)
-      return { error: error.message }
-    })
+    )
+    return response.data
+  } catch (error) {
+    console.log(error)
+    toast.error(`Login Error: ${error.message}`)
+    return { error: error.message }
+  }
 }
 
 export default function Login({ setToken, setUserInfo }) {

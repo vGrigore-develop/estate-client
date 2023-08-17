@@ -1,6 +1,6 @@
 .app-header {
-  background-color: #333;
-  color: white;
+  background-color: #FF6F61; /* Living Coral background */
+  color: #fff; /* White text for contrast */
   padding: 10px;
   text-align: center;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { CircularProgress, Container } from '@mui/material'
-import { toast } from 'react-toastify';
+import axios from 'axios'
+import { Container } from '@mui/material'
+import { toast } from 'react-toastify'
 
 import EstateCard from './EstateCard'
 import StyledCustomPagination from './Pagination'
@@ -19,26 +20,22 @@ export default function ClientDashboard() {
 
     const tokenString = sessionStorage.getItem('token')
     const userToken = JSON.parse(tokenString)
-    fetch(URL, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': userToken.token,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok') // You can customize this message
-        }
-        return response.json()
+    axios
+      .get(URL, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': userToken.token,
+        },
       })
-      .then((body) => {
+      .then((response) => {
+        const body = response.data
         setEstates([...body.estates])
         setPageCount(body.pagination.totalPages)
         setIsLoaded(true)
         setIsLoading(false)
       })
       .catch((error) => {
-        toast.error(`Error: ${error.message}`);
+        toast.error(`Error: ${error.message}`)
         setIsLoading(false)
       })
   }, [currentPage])
@@ -50,8 +47,8 @@ export default function ClientDashboard() {
   return (
     <Container>
       {isLoading ? (
-        <div className="loading-spinner">
-          <CircularProgress />
+        <div className="loading-overlay">
+          <div className="loading-spinner"></div>
         </div>
       ) : (
         <div className="card-list">
