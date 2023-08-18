@@ -1,3 +1,7 @@
+.client-dashboard-container {
+  margin-top: 20px; /* Adjust this value as needed */
+}
+
 .loading-overlay {
   position: fixed;
   top: 0;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import {
   Container,
-  TextField,
   FormControl,
   InputLabel,
   Select,
@@ -12,7 +11,7 @@ import { toast } from 'react-toastify'
 
 import isTokenExpired from '../App/useToken'
 
-import EstateCard from './EstateCard'
+import EstateCard from './EstateCard/EstateCard'
 import StyledCustomPagination from './Pagination'
 import './ClientDashboard.css'
 
@@ -22,10 +21,12 @@ export default function ClientDashboard() {
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageCount, setPageCount] = useState(0)
+  const [sortCriteria, setSortCriteria] = useState('price asc')
 
   useEffect(() => {
     setIsLoading(true)
-    const URL = `${process.env.REACT_APP_API_URL}/estates/get?pageSize=10&pageNo=${currentPage}`
+    const [sortField, sortOrder] = sortCriteria.split(' ')
+    const URL = `${process.env.REACT_APP_API_URL}/estates/get?pageSize=10&pageNo=${currentPage}&sortField=${sortField}&sortOrder=${sortOrder}`
 
     const tokenString = sessionStorage.getItem('token')
     const userToken = JSON.parse(tokenString)
@@ -52,14 +53,14 @@ export default function ClientDashboard() {
         }
         setIsLoading(false)
       })
-  }, [currentPage])
+  }, [currentPage, sortCriteria])
 
   const handlePageChange = (event, selectedPage) => {
     setCurrentPage(selectedPage)
   }
 
   return (
-    <Container>
+    <Container className="client-dashboard-container">
       <div
         style={{
           display: 'flex',
@@ -68,14 +69,16 @@ export default function ClientDashboard() {
         }}
       >
         <FormControl variant="outlined" style={{ width: '45%' }}>
-          <InputLabel>Sort by Price</InputLabel>
+          <InputLabel>Sort</InputLabel>
           <Select
-            // value={sortOrder}
-            // onChange={(e) => setSortOrder(e.target.value)}
-            label="Sort by Price"
+            value={sortCriteria}
+            onChange={(e) => setSortCriteria(e.target.value)}
+            label="Sort"
           >
-            <MenuItem value="asc">Ascending</MenuItem>
-            <MenuItem value="desc">Descending</MenuItem>
+            <MenuItem value="title asc">Title</MenuItem>
+            <MenuItem value="createdAt desc">Most Recent</MenuItem>
+            <MenuItem value="price desc">Descending Price</MenuItem>
+            <MenuItem value="price asc">Ascending Price</MenuItem>
           </Select>
         </FormControl>
       </div>
@@ -88,6 +91,7 @@ export default function ClientDashboard() {
           {isLoaded &&
             estates.map((item) => (
               <EstateCard
+                key={item._id}
                 id={item._id}
                 title={item.title}
                 price={item.price}
